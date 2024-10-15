@@ -1,5 +1,5 @@
 // Entry point for the app
-import app from './index'
+import app from './config'
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {
