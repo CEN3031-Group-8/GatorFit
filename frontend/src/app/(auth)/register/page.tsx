@@ -1,5 +1,5 @@
-import React from 'react'
 import { FcGoogle } from 'react-icons/fc'
+import Link from 'next/link'
 
 import RegisterForm from './RegisterForm'
 
@@ -25,12 +25,12 @@ const RegisterPage = () => (
     </a>
 
     <div className='mt-6 text-center '>
-      <a
-        href='#'
+      <Link
+        href='/login'
         className='text-sm text-blue-500 hover:underline dark:text-blue-400'
       >
         Already have an account? Log in.
-      </a>
+      </Link>
     </div>
   </>
 )

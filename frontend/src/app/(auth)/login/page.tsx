@@ -1,5 +1,5 @@
-import React from 'react'
 import { FcGoogle } from 'react-icons/fc'
+import Link from 'next/link'
 
 import LoginForm from './LoginForm'
 
@@ -25,12 +25,12 @@ const LoginPage = () => (
     </a>
 
     <div className='mt-6 text-center '>
-      <a
-        href='#'
+      <Link
+        href='/register'
         className='text-sm text-blue-500 hover:underline dark:text-blue-400'
       >
         Don’t have an account yet? Sign up
-      </a>
+      </Link>
     </div>
   </>
 )
