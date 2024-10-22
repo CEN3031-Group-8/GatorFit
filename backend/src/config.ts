@@ -1,16 +1,23 @@
 // Initializes the express app
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
 import routes from './routes'
 
 dotenv.config()
-const mongoUri = process.env.MONGO_URI || ''
+
+if (!process.env.MONGO_URI) {
+  throw new Error('Missing environment variable: MONGO_URI')
+}
+
+if (!process.env.API_KEY) {
+  throw new Error('Missing environment variable: API_KEY')
+}
 
 mongoose
-  .connect(mongoUri)
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB')
   })
@@ -21,6 +28,17 @@ mongoose
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+const validateAuth = (req: Request, res: Response, next: NextFunction) => {
+  const key = req.get('Authorization')
+  if (key === process.env.API_KEY) {
+    next()
+  } else {
+    res.status(401).json({ error: 'Invalid/missing API key' })
+  }
+}
+
+app.use(validateAuth)
 app.use('/', routes)
 
 export default app
