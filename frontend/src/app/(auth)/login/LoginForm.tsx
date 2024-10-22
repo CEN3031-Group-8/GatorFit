@@ -10,15 +10,21 @@ import {
   FormItem,
   FormMessage,
 } from '@components/ui/form'
+import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import FormError from '../FormError'
 import FormSuccess from '../FormSuccess'
+import { login } from '@actions'
 import { LoginSchema, LoginOptions } from '@schema'
 
 const LoginForm = () => {
+  const [error, setError] = useState<string | undefined>('')
+  const [success, setSuccess] = useState<string | undefined>('')
+  const [isPending, startTransition] = useTransition()
+
   const form = useForm<LoginOptions>({
     resolver: zodResolver(LoginSchema),
     mode: 'onChange',
@@ -28,10 +34,13 @@ const LoginForm = () => {
     },
   })
 
-  // temporary
-
   const onSubmit = (values: LoginOptions) => {
-    console.log(values)
+    startTransition(() => {
+      login(values).then(({ success, error }) => {
+        setSuccess(success)
+        setError(error)
+      })
+    })
   }
 
   const onError = (error: any) => {
@@ -92,11 +101,12 @@ const LoginForm = () => {
           )}
         />
 
-        <FormError message='' />
-        <FormSuccess message='' />
+        <FormError message={error} />
+        <FormSuccess message={success} />
 
         <Button
           type='submit'
+          disabled={isPending}
           className='w-fullpx-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50'
         >
           Login

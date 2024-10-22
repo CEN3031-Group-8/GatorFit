@@ -20,7 +20,10 @@ const PasswordSchema = z
 
 export const RegisterSchema = z
   .object({
-    username: z.string().min(1, { message: 'Name is required' }),
+    username: z
+      .string()
+      .min(3, { message: 'Username must be at least 3 characters' })
+      .max(20, { message: 'Username must be at most 20 characters' }),
     email: z
       .string()
       .min(1, {

@@ -17,9 +17,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import FormError from '../FormError'
 import FormSuccess from '../FormSuccess'
+import { register } from '@actions'
 import { RegisterSchema, RegisterOptions } from '@schema'
+import { useState, useTransition } from 'react'
 
 const RegisterForm = () => {
+  const [error, setError] = useState<string | undefined>('')
+  const [success, setSuccess] = useState<string | undefined>('')
+  const [isPending, startTransition] = useTransition()
+
   const form = useForm<RegisterOptions>({
     resolver: zodResolver(RegisterSchema),
     mode: 'onChange',
@@ -30,7 +36,12 @@ const RegisterForm = () => {
   })
 
   const onSubmit = (values: RegisterOptions) => {
-    console.log(values)
+    startTransition(() => {
+      register(values).then(({ success, error }) => {
+        setSuccess(success)
+        setError(error)
+      })
+    })
   }
 
   const onError = (error: any) => {
@@ -139,11 +150,12 @@ const RegisterForm = () => {
           )}
         />
 
-        <FormError message='' />
-        <FormSuccess message='' />
+        <FormError message={error} />
+        <FormSuccess message={success} />
 
         <Button
           type='submit'
+          disabled={isPending}
           className='w-fullpx-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50'
         >
           Sign Up
