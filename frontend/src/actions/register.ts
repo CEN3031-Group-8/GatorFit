@@ -28,7 +28,7 @@ export const register = async (values: RegisterOptions) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: process.env.API_KEY,
+        'API-Key': process.env.API_KEY,
       },
       body: JSON.stringify({ username, email, password: hashed }),
     })

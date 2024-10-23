@@ -20,6 +20,10 @@ if (!process.env.FRONTEND_URL) {
   throw new Error('Missing environment variable: FRONTEND_URL')
 }
 
+if (!process.env.AUTH_SECRET) {
+  throw new Error('Missing environment variable: FRONTEND_URL')
+}
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -35,7 +39,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 const validateAuth = (req: Request, res: Response, next: NextFunction) => {
-  const key = req.get('Authorization')
+  const key = req.get('API-Key')
   if (key === process.env.API_KEY) {
     next()
   } else {

@@ -20,4 +20,14 @@ export const userSchema = new Schema({
     required: true,
     length: 60,
   },
+  emailVerified: {
+    type: Date,
+  },
+})
+
+userSchema.set('toObject', {
+  transform: (_, ret) => {
+    delete ret.__v
+    return ret
+  },
 })

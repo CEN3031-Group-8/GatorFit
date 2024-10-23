@@ -21,8 +21,7 @@ import { login } from '@actions'
 import { LoginSchema, LoginOptions } from '@schema'
 
 const LoginForm = () => {
-  const [error, setError] = useState<string | undefined>('')
-  const [success, setSuccess] = useState<string | undefined>('')
+  const [error, setError] = useState(false)
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<LoginOptions>({
@@ -36,9 +35,8 @@ const LoginForm = () => {
 
   const onSubmit = (values: LoginOptions) => {
     startTransition(() => {
-      login(values).then(({ success, error }) => {
-        setSuccess(success)
-        setError(error)
+      login(values).catch(() => {
+        setError(true)
       })
     })
   }
@@ -101,8 +99,7 @@ const LoginForm = () => {
           )}
         />
 
-        <FormError message={error} />
-        <FormSuccess message={success} />
+        {error && <FormError message={'Invalid credentials'} />}
 
         <Button
           type='submit'

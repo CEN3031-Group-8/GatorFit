@@ -20,7 +20,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@actions": ["./src/actions"],
+      "@auth": ["./src/auth"],
       "@components/*": ["./src/components/*"],
+      "@routes": ["./src/routes"],
       "@schema": ["./src/schema"]
     }
   },
