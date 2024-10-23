@@ -16,6 +16,10 @@ if (!process.env.API_KEY) {
   throw new Error('Missing environment variable: API_KEY')
 }
 
+if (!process.env.FRONTEND_URL) {
+  throw new Error('Missing environment variable: FRONTEND_URL')
+}
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -26,7 +30,7 @@ mongoose
   })
 
 const app = express()
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
