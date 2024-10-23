@@ -1,5 +1,5 @@
 // Initializes the express app
-import bodyParser from 'body-parser'
+import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
@@ -26,6 +26,7 @@ mongoose
   })
 
 const app = express()
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
