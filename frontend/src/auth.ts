@@ -4,13 +4,16 @@ import Credentials from 'next-auth/providers/credentials'
 import { AdapterUser } from '@auth/core/adapters'
 
 export const {
+  auth,
   handlers: { GET, POST },
   signIn,
   signOut,
-  auth,
 } = NextAuth({
   providers: [
-    Google,
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     Credentials({
       credentials: {
         email: { label: 'Email', type: 'text' },

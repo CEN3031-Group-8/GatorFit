@@ -1,8 +1,8 @@
 'use client'
 
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from '@components/ui/button'
+import { Input } from '@components/ui/input'
 import {
   Form,
   FormControl,
