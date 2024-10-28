@@ -20,14 +20,6 @@ export const login = async (values: LoginOptions) => {
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     })
   } catch (error: any) {
-    if (error instanceof AuthError) {
-      if (error.type === 'CredentialsSignin') {
-        return { error: 'That email/password combination does not exist' }
-      }
-
-      return { error: 'Something went wrong' }
-    }
-
     throw error
   }
 }

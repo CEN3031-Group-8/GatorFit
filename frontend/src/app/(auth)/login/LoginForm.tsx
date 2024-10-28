@@ -12,16 +12,14 @@ import {
 } from '@components/ui/form'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import FormError from '../FormError'
-import FormSuccess from '../FormSuccess'
 import { login } from '@actions'
 import { LoginSchema, LoginOptions } from '@schema'
 
 const LoginForm = () => {
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<LoginOptions>({
@@ -35,8 +33,8 @@ const LoginForm = () => {
 
   const onSubmit = (values: LoginOptions) => {
     startTransition(() => {
-      login(values).catch(() => {
-        setError(true)
+      login(values).catch((loginError) => {
+        setError('That email/password combination does not exist')
       })
     })
   }
@@ -99,7 +97,7 @@ const LoginForm = () => {
           )}
         />
 
-        {error && <FormError message={'Invalid credentials'} />}
+        <FormError message={error} />
 
         <Button
           type='submit'

@@ -38,7 +38,6 @@ export const login = async (data: any) => {
   }
 
   const passwordsMatch = await bcrypt.compare(data.password, user.password)
-  console.log(data.password)
   if (!passwordsMatch) {
     return {
       error: { status: 401, message: 'Invalid credentials' },
