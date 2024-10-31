@@ -14,7 +14,7 @@ import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import FormError from '../FormError'
+import FormError from '@components/form/FormError'
 import { login } from '@actions'
 import { LoginSchema, LoginOptions } from '@schema'
 
@@ -33,14 +33,14 @@ const LoginForm = () => {
 
   const onSubmit = (values: LoginOptions) => {
     startTransition(() => {
-      login(values).catch((loginError) => {
+      login(values).catch(() => {
         setError('That email/password combination does not exist')
       })
     })
   }
 
-  const onError = (error: any) => {
-    console.log('error submit')
+  const onError = () => {
+    console.log('error submitting')
   }
 
   return (

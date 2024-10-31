@@ -15,8 +15,8 @@ import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import FormError from '../FormError'
-import FormSuccess from '../FormSuccess'
+import FormError from '@components/form/FormError'
+import FormSuccess from '@components/form/FormSuccess'
 import { register } from '@actions'
 import { RegisterSchema, RegisterOptions } from '@schema'
 import { useState, useTransition } from 'react'
@@ -44,8 +44,8 @@ const RegisterForm = () => {
     })
   }
 
-  const onError = (error: any) => {
-    console.log('error submit')
+  const onError = () => {
+    console.log('error submitting')
   }
 
   return (
