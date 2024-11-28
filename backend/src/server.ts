@@ -7,7 +7,7 @@ app.listen(port, () => {
   console.log(`listening on port ${port}`)
 })
 
-import { Workout } from './schema/workoutSchema'
+// import { Workout } from './models/Workout'
 
 
 // const testWorkout = new Workout({
