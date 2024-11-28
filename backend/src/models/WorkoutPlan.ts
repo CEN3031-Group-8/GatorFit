@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { exerciseSchema, userSchema, workoutSchema } from './'
+import { exerciseSchema, userSchema} from './'
 
 export const exercisePlanSchema = new Schema({
   exercise: {
@@ -41,13 +41,19 @@ export const workoutPlanSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  active: {
-    type: Boolean,
-    required: true,
-    default: true,
-  },
   workoutDays: {
     type: [workoutDaySchema]
+  }
+})
+
+export const activeWorkoutPlan = new Schema({
+  creator: {
+    type: userSchema,
+    required: true
+  },
+  workoutPlan: {
+    type: workoutPlanSchema,
+    required: true
   }
 })
 
