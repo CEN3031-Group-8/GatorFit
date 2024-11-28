@@ -56,6 +56,11 @@ export const activeWorkoutPlanSchema = new Schema({
   workoutPlan: {
     type: workoutPlanSchema,
     required: true
+  },
+  workoutDayIndex: {
+    type: Number,
+    required: true,
+    default: 0
   }
 })
 
