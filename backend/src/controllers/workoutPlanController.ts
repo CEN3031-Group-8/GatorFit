@@ -5,6 +5,7 @@ export const saveWorkoutPlan = async (data: any) => {
     const newWorkoutPlan = new WorkoutPlan({ ...data })
     const newActiveWorkoutPlan = new activeWorkoutPlan({ creator: newWorkoutPlan.creator, workoutPlan: newWorkoutPlan })
     await newWorkoutPlan.save()
+    await newActiveWorkoutPlan.save()
     return { success: true }
   } catch (error: any) {
     return {

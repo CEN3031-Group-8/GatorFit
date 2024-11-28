@@ -27,7 +27,8 @@ export const workoutDaySchema = new Schema({
 
 export const workoutPlanSchema = new Schema({
   creator: {
-    type: userSchema,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   title: {
@@ -46,9 +47,10 @@ export const workoutPlanSchema = new Schema({
   }
 })
 
-export const activeWorkoutPlan = new Schema({
+export const activeWorkoutPlanSchema = new Schema({
   creator: {
-    type: userSchema,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   workoutPlan: {
@@ -59,3 +61,4 @@ export const activeWorkoutPlan = new Schema({
 
 // Create models
 export const WorkoutPlan = model('WorkoutPlan', workoutPlanSchema);
+export const activeWorkoutPlan = model('ActiveWorkoutPlan', activeWorkoutPlanSchema);

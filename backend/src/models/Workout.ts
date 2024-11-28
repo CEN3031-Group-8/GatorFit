@@ -27,7 +27,8 @@ export const exerciseSchema = new Schema({
 
 export const workoutSchema = new Schema({
   creator: {
-    type: userSchema,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   title: {
