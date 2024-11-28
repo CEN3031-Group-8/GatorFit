@@ -17,7 +17,7 @@ export const workoutDaySchema = new Schema({
     type: String,
     required: true,
     unique: false,
-    minlength: 3,
+    minlength: 1,
     maxlength: 20,
   },
   exercisePlans: {
@@ -34,7 +34,7 @@ export const workoutPlanSchema = new Schema({
   title: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 1,
     maxlength: 20,
   },
   date: {
