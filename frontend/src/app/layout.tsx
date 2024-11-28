@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${IBMPlexMono.className} antialiased`}
+        className={`${IBMPlexMono.className} antialiased bg-[#0B0B09] text-[#F3F7F0]`}
       >
         {children}
       </body>
