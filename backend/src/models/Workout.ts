@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import { userSchema } from './'
 
 export const setSchema = new Schema({
     reps: {
@@ -25,6 +26,10 @@ export const exerciseSchema = new Schema({
 })
 
 export const workoutSchema = new Schema({
+  creator: {
+    type: userSchema,
+    required: true
+  },
   title: {
     type: String,
     required: true,

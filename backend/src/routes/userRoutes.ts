@@ -1,7 +1,7 @@
 // Houses all of the express routes
 import express from 'express'
 
-import { login, register } from './data'
+import { login, register } from '../controllers/userController'
 
 const routes = express.Router()
 

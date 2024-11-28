@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
-import routes from './routes'
+import routes from './routes/userRoutes'
 
 dotenv.config()
 
