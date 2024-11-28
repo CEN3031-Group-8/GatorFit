@@ -34,7 +34,6 @@ export const workoutPlanSchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: false,
     minlength: 3,
     maxlength: 20,
   },
