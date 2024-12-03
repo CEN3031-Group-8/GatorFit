@@ -87,7 +87,7 @@ export default async function WorkoutPage() {
     </div>
 
     {/* Exercises */}
-    <div className="space-y-8 mt-24">
+    <div className="space-y-8 mt-20">
       {exercises.map((exercise: any, index: number) => <Exercise key={index} exercise={exercise}/> )}
     </div>
 
