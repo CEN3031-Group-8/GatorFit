@@ -5,6 +5,8 @@ import { login, register } from './controllers/userController'
 import { saveWorkoutPlan } from './controllers/workoutPlanController'
 import { saveWorkout } from './controllers/workoutController'
 
+import { ActiveWorkoutPlan, User } from './models'
+
 
 const routes = express.Router()
 
@@ -50,6 +52,11 @@ routes.post('/workout', async (req, res) => {
     console.log(`POST /workout ${error.status}`)
     res.status(error.status).json({ error: error.message })
   }
+})
+
+routes.get('/get-active-workout/:userid', async (req, res) => {
+  const activeWorkoutPlan = await ActiveWorkoutPlan.findOne({ creator: req.params.userid}).populate('workoutPlan')
+  res.status(200).json(activeWorkoutPlan)
 })
 
 export default routes
