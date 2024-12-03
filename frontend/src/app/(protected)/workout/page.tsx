@@ -59,7 +59,6 @@ const Exercise = ({exercise} : {exercise: any}) => {
             <div className="flex items-center justify-center"><Input type="number" placeholder="" className="bg-[#C41E3D] px-3 py-1 rounded-md font-bold text-center border-0 max-w-14"/></div>
           </>
         )}
-
       </div>
     </div>
   )
@@ -76,7 +75,7 @@ export default async function WorkoutPage() {
   return(
     <>
     {/* Title */}
-    <div className="mt-4 flex items-center justify-between p-4 border-b border-white/10">
+    <div className="top-0 fixed w-full mt-4 flex items-center justify-between p-4 border-b border-white/10 bg-[#0B0B09]">
       <h1 className='font-bold text-xl'>
         {formatDate(today)} - {workoutDay.title}
         </h1>
@@ -87,7 +86,7 @@ export default async function WorkoutPage() {
     </div>
 
     {/* Exercises */}
-    <div className="space-y-8">
+    <div className="space-y-8 mt-24">
       {exercises.map((exercise: any, index: number) => <Exercise key={index} exercise={exercise}/> )}
     </div>
       

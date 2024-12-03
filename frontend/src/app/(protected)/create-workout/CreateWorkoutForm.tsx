@@ -169,7 +169,7 @@ export const CreateWorkoutForm = () => {
                 <WorkoutDayElement key={index} workoutDayIndex={index} stateFunctions={stateFunctions} workoutDays={workoutDays}/>
             ))}
             </div>
-            <div className="p-4 flex items-center justify-center mt-12 mb-36">
+            <div className="p-4 flex items-center justify-center mt-12 mb-48">
                 <Button type="button" onClick={addWorkoutDay} className="bg-[#C41E3D] hover:bg-[#942338] focus:bg-[#942338] font-bold">
                     <PlusCircledIcon></PlusCircledIcon>
                     Add Day
@@ -179,7 +179,7 @@ export const CreateWorkoutForm = () => {
             <FormError message={error} />
             <FormSuccess message={success} />
 
-            <div className="fixed flex items-center justify-center bottom-10 w-full">
+            <div className="fixed flex items-center justify-center bottom-20 w-full">
                 <Button
                 type='submit'
                 disabled={isPending}
