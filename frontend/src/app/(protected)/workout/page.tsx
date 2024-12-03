@@ -1,8 +1,9 @@
-import { DotsVerticalIcon, Pencil2Icon } from "@radix-ui/react-icons"
+import { DotsVerticalIcon, Pencil2Icon, PlusCircledIcon } from "@radix-ui/react-icons"
 import { Input } from "@/components/ui/input"
 import { auth } from '@auth'
 import { getActiveWorkoutPlan } from "@/actions/getActiveWorkoutPlan";
 import { redirect } from 'next/navigation'
+import { Button } from '@/components/ui/button';
 
 export const metadata = {
   title: 'Workout - GatorFit',
@@ -75,7 +76,7 @@ export default async function WorkoutPage() {
   return(
     <>
     {/* Title */}
-    <div className="top-0 fixed w-full mt-4 flex items-center justify-between p-4 border-b border-white/10 bg-[#0B0B09]">
+    <div className="top-0 fixed w-full pt-8 flex items-center justify-between p-4 border-b border-white/10 bg-[#0B0B09]">
       <h1 className='font-bold text-xl'>
         {formatDate(today)} - {workoutDay.title}
         </h1>
@@ -88,6 +89,12 @@ export default async function WorkoutPage() {
     {/* Exercises */}
     <div className="space-y-8 mt-24">
       {exercises.map((exercise: any, index: number) => <Exercise key={index} exercise={exercise}/> )}
+    </div>
+
+    <div className="p-4 flex items-center justify-center mt-12">
+        <Button type="button" className="bg-[#C41E3D] hover:bg-[#942338] focus:bg-[#942338] font-bold text-xl p-6">
+            Save Workout
+        </Button>
     </div>
       
     </>
