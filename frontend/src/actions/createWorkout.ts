@@ -1,5 +1,15 @@
 'use server'
+
+import { auth } from '@auth'
+
 export const createWorkoutPlan = async (data: any) => {
+  const session = await auth()
+    if(session) {
+        data["creator"] = session.user.user.id
+    } else {
+        return { error: 'Not logged in' }
+    }
+
   if (
     typeof process.env.BACKEND_URL !== 'string' ||
     typeof process.env.API_KEY !== 'string'
@@ -9,6 +19,7 @@ export const createWorkoutPlan = async (data: any) => {
   }
 
   const createWorkoutUrl = process.env.BACKEND_URL + '/create-workout'
+  data.workoutDays = JSON.parse(data.workoutDays)
   try {
     const res = await fetch(createWorkoutUrl, {
       method: 'POST',
@@ -19,11 +30,12 @@ export const createWorkoutPlan = async (data: any) => {
       body: JSON.stringify(data),
     })
 
+
     if (!res.ok) {
       const body = await res.json()
       return { error: body.error }
     } else {
-      return { success: 'Registered successfully!' }
+      return { success: 'Created successfully!' }
     }
   } catch (error: any) {
     return { error: error.message }

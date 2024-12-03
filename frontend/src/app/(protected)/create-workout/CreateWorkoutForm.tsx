@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useTransition } from 'react';
+import { redirect } from 'next/navigation'
 
 import {
     Form,
@@ -25,28 +26,28 @@ import { WorkoutPlanSchema, WorkoutPlanOptions } from '@schema'
 
 
 export class Exercise {
-    type: string
+    exercise: string
     // numSets is a string because input fields are always string, casting to int should be done in form validation
     numSets: string
 
     constructor() {
-        this.type = ""
+        this.exercise = ""
         this.numSets = ""
     }
 }
 
 export class WorkoutDay {
     title: string
-    exercises: Exercise[]
+    plannedExercises: Exercise[]
 
     constructor() {
         this.title = ""
-        this.exercises = [new Exercise()]
+        this.plannedExercises = [new Exercise()]
     }
 }
 
 const ExerciseElement = ({ workoutDayIndex, exerciseIndex, workoutDays, stateFunctions } : {workoutDayIndex: number, exerciseIndex: number, workoutDays: WorkoutDay[], stateFunctions: any}) => {
-    let exercise = workoutDays[workoutDayIndex].exercises[exerciseIndex]
+    let exercise = workoutDays[workoutDayIndex].plannedExercises[exerciseIndex]
     return (
       <div className="flex justify-around">
         <div >
@@ -68,7 +69,7 @@ const WorkoutDayElement = ({workoutDayIndex, workoutDays, stateFunctions } : {wo
                     <Input onChange={(event) => {stateFunctions["handleWorkoutTitleChange"](workoutDayIndex, event)}} type="text" placeholder="Workout Title" className="font-semibold w-full text-center border-0 border-b rounded-none placeholder-gray-400" />
                 </div>
                 <div className="flex flex-col items-stretch space-y-4">
-                    {workoutDay.exercises.map((exercise: Exercise, index: number) => (
+                    {workoutDay.plannedExercises.map((exercise: Exercise, index: number) => (
                         <ExerciseElement key={index} workoutDayIndex={workoutDayIndex}  exerciseIndex={index} stateFunctions={stateFunctions} workoutDays={workoutDays} />
                     ))}
                 </div>
@@ -94,7 +95,7 @@ export const CreateWorkoutForm = () => {
     
     function addExercise(workoutDayIndex: number) {
         let newWorkoutDays = [...workoutDays]
-        newWorkoutDays[workoutDayIndex].exercises = [...newWorkoutDays[workoutDayIndex].exercises, new Exercise()]
+        newWorkoutDays[workoutDayIndex].plannedExercises = [...newWorkoutDays[workoutDayIndex].plannedExercises, new Exercise()]
         setWorkoutDays(newWorkoutDays)
     }
 
@@ -106,13 +107,13 @@ export const CreateWorkoutForm = () => {
     
     function handleExerciseTypeChange(workoutDayIndex: number, exerciseIndex: number, value: string) {
         let newWorkoutDays = [...workoutDays]
-        newWorkoutDays[workoutDayIndex].exercises[exerciseIndex]["type"] = value
+        newWorkoutDays[workoutDayIndex].plannedExercises[exerciseIndex]["exercise"] = value
         setWorkoutDays(newWorkoutDays)
     }
     
     function handleNumSetsChange(workoutDayIndex: number, exerciseIndex: number, event: React.ChangeEvent<HTMLInputElement> ) {
         let newWorkoutDays = [...workoutDays]
-        newWorkoutDays[workoutDayIndex].exercises[exerciseIndex]["numSets"] = event.target.value
+        newWorkoutDays[workoutDayIndex].plannedExercises[exerciseIndex]["numSets"] = event.target.value
         setWorkoutDays(newWorkoutDays)
     }
 
@@ -142,12 +143,13 @@ export const CreateWorkoutForm = () => {
         const formData = new FormData(event.currentTarget)
         let data = {
             "title": formData.get("workout-plan-title"),
-            "workoutDays": workoutDays
+            "workoutDays": JSON.stringify(workoutDays),
         }
         startTransition(() => {
             createWorkoutPlan(data).then(({ success, error }) => {
             setSuccess(success)
             setError(error)
+            if(success) redirect("/workout")
             })
         })
     }
