@@ -67,7 +67,6 @@ const Exercise = ({exercise} : {exercise: any}) => {
 
 export default async function WorkoutPage() {
   const activeWorkoutPlan = await getActiveWorkoutPlan()
-  console.log(activeWorkoutPlan.status)
   if(!activeWorkoutPlan) redirect("/create-workout")
 
   const workoutPlan = activeWorkoutPlan.workoutPlan
