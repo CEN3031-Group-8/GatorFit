@@ -55,8 +55,14 @@ routes.post('/workout', async (req, res) => {
 })
 
 routes.get('/get-active-workout/:userid', async (req, res) => {
+  console.log(req.params.userid)
   const activeWorkoutPlan = await ActiveWorkoutPlan.findOne({ creator: req.params.userid}).populate('workoutPlan')
-  res.status(200).json(activeWorkoutPlan)
+  if (activeWorkoutPlan) {
+    res.status(200).json(activeWorkoutPlan)
+  } else {
+    console.log("A")
+    res.status(400).json({error : "Could not find active workout plan"})
+  }
 })
 
 export default routes

@@ -17,7 +17,7 @@ const formatDate = (date: Date) => {
 };
 const today = new Date();
 
-const Exercise = (exercise: any) => {
+const Exercise = ({exercise} : {exercise: any}) => {
   const [rawTitle, rawType] = exercise.exercise.split('|');
 
   // Function to capitalize and format text
@@ -67,7 +67,8 @@ const Exercise = (exercise: any) => {
 
 export default async function WorkoutPage() {
   const activeWorkoutPlan = await getActiveWorkoutPlan()
-  if(!getActiveWorkoutPlan) redirect("/create-workout")
+  console.log(activeWorkoutPlan.status)
+  if(!activeWorkoutPlan) redirect("/create-workout")
 
   const workoutPlan = activeWorkoutPlan.workoutPlan
   const workoutDay = workoutPlan.workoutDays[activeWorkoutPlan.workoutDayIndex]
@@ -88,7 +89,7 @@ export default async function WorkoutPage() {
 
     {/* Exercises */}
     <div className="space-y-8">
-      {exercises.map((exercise: any) => Exercise(exercise)) }
+      {exercises.map((exercise: any, index: number) => <Exercise key={index} exercise={exercise}/> )}
     </div>
       
     </>

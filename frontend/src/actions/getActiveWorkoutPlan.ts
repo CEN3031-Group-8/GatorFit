@@ -4,9 +4,9 @@ import { auth } from '@auth'
 
 export const getActiveWorkoutPlan = async () => {
   const session = await auth()
-    if(!session) {
-        return { error: 'Not logged in' }
-    }
+  if(!session) {
+      return { error: 'Not logged in' }
+  }
 
   if (
     typeof process.env.BACKEND_URL !== 'string' ||
@@ -26,10 +26,10 @@ export const getActiveWorkoutPlan = async () => {
       },
     })
 
-    const body = await res.json()
     if (!res.ok) {
       return false
     } else {
+      const body = await res.json()
       return body
     }
   } catch (error: any) {
