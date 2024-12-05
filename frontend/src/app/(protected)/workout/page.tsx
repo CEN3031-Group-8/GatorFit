@@ -76,7 +76,7 @@ export default async function WorkoutPage() {
   return(
     <>
     {/* Title */}
-    <div className="top-0 fixed w-full pt-8 flex items-center justify-between p-4 border-b border-white/10 bg-[#0B0B09]">
+    <div className="top-0 fixed w-full pt-8 flex items-center justify-between p-4 border-b border-white/10 bg-[#0B0B09] max-w-screen-md">
       <h1 className='font-bold text-xl'>
         {formatDate(today)} - {workoutDay.title}
         </h1>

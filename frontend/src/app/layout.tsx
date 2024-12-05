@@ -24,8 +24,13 @@ export default function RootLayout({
       <body
         className={`${IBMPlexMono.className} antialiased bg-[#0B0B09] text-[#F3F7F0]`}
       >
-        {children}
-        
+        <div className="flex items-center justify-center bg-">
+          <div className="max-w-screen-md w-full">
+            {children}
+          </div>
+        </div>
+
+
       </body>
     </html>
   );

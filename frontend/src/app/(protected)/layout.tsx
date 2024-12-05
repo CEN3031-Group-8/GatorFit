@@ -32,7 +32,7 @@ const layout = ({
         {children}
       </div>
       {/* Nav Menu */}
-      <div className="fixed bottom-0 w-full flex items-center justify-around p-4 bg-[#0B0B09] border-t border-white/10">
+      <div className="fixed bottom-0 w-full flex items-center justify-around p-4 bg-[#0B0B09] border-t border-white/10 max-w-screen-md">
         { pages.map((page, index) => (
           isCurrentPage(page) ? 
           (<a key={index} href={page} className="border-b-2 pb-2 border-white">{icons[page]}</a>) :
