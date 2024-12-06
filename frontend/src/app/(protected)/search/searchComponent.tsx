@@ -36,7 +36,7 @@ const UserComponent = (user: any) => {
 
 export function SearchComponent() {
   const [query, setQuery] = useState("");
-  const [users, setUsers] = useState([new User()]);
+  const [users, setUsers] = useState(new Array<User>());
 
   async function handleInputChange (e: any) { 
     const search = e.target.value
