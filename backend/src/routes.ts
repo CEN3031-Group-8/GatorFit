@@ -90,6 +90,16 @@ routes.get('/get-feed/:userid', async (req, res) => {
   }
 })
 
+routes.get('/get-posts/:userid', async (req, res) => {
+  try {
+    // const activeWorkoutPlan = await ActiveWorkoutPlan.findOne({ creator: req.params.userid}).populate('workoutPlan')
+    const posts = await Post.find({ creator: req.params.userid }).populate(['workout','creator',])
+    res.status(200).json(posts)
+  } catch {
+    res.status(400).json({error : "Something went wrong"})
+  }
+})
+
 routes.post('/create-like/:userid/:postid', async (req, res) => {
   try {
     const likeData = {
@@ -107,8 +117,18 @@ routes.post('/create-like/:userid/:postid', async (req, res) => {
 
 routes.post('/delete-like/:userid/:postid', async (req, res) => {
   try {
-    await Like.deleteOne({ creator: req.params.userid})
+    await Like.deleteOne({ creator: req.params.userid, post: req.params.postid})
     console.log('POST /workout 200')
+    res.sendStatus(200)
+  } catch (error) {
+    res.status(400).json({error : "Something went wrong"})
+
+  }
+})
+
+routes.post('/delete-post/:userid/:postid', async (req, res) => {
+  try {
+    await Post.deleteOne({ creator: req.params.userid, _id: req.params.postid})
     res.sendStatus(200)
   } catch (error) {
     res.status(400).json({error : "Something went wrong"})

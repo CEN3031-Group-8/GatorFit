@@ -132,11 +132,10 @@ const NutritionTracker = () => {
 
   return (
     <div className="bg-black text-white w-full max-w-md mx-auto h-screen flex flex-col">
-      {/* Header */}
-      <div className="p-4 text-gray-400">Diet</div>
+
 
       {/* Date Navigation */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-800">
+      <div className="flex items-center justify-between p-4 border-b border-gray-800 mt-4">
         <ChevronLeft
           className="w-6 h-6 cursor-pointer"
           onClick={() => navigateDate(-1)}
