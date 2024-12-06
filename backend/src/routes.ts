@@ -114,4 +114,14 @@ routes.post('/delete-like/:userid/:postid', async (req, res) => {
   }
 })
 
+routes.get('/search-users/:query', async (req, res) => {
+  try {
+    // const activeWorkoutPlan = await ActiveWorkoutPlan.findOne({ creator: req.params.userid}).populate('workoutPlan')
+    const users = await User.find({ username: { $regex: req.params.query, $options: 'i' } })
+    res.status(200).json(users)
+  } catch {
+    res.status(400).json({error : "Something went wrong"})
+  }
+})
+
 export default routes

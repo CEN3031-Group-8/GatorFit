@@ -1,9 +1,10 @@
-import { searchComponent } from './searchComponent'
+import { searchUsers } from '@/actions/searchUsers';
+import { SearchComponent } from './searchComponent'
 
-const search = () => {
+const search = async () => {
     return(
         <div>
-            <searchComponent/>
+            <SearchComponent/>
         </div>
     )
 }
