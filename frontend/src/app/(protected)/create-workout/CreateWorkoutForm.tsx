@@ -179,7 +179,7 @@ export const CreateWorkoutForm = () => {
             <FormError message={error} />
             <FormSuccess message={success} />
 
-            <div className="fixed flex items-center justify-center bottom-20 w-full">
+            <div className="fixed bottom-20 left-0 right-0 mx-auto flex items-center justify-center max-w-md">
                 <Button
                 type='submit'
                 disabled={isPending}

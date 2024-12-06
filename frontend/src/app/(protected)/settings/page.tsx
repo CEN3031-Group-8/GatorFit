@@ -14,7 +14,7 @@ export default async function SettingsPage() {
 
   return (
     <div>
-      <div className='fixed bottom-24 '>
+      <div className='fixed bottom-24 left-1/2 transform -translate-x-1/2'>
         <div className="flex items-center justify-center w-screen">
           <Button
             onClick={async () => {
