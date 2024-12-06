@@ -14,13 +14,8 @@ import { saveFood } from "@/actions/saveFood";
 import { getFoods } from "@/actions";
 
 const NutritionTracker = () => {
-  const getFoodData = async () => {
-    const foodData = await getFoods()
-    console.log(foodData)
-    return foodData
-  }
   const [currentDate, setCurrentDate] = useState(dayjs().format("YYYY-MM-DD"));
-  const [dataByDate, setDataByDate] = useState(getFoodData);
+  const [dataByDate, setDataByDate] = useState({});
 
   const appId = "12125993"; // Replace with Edamam app ID
   const appKey = "002ab0abce55914fbabdb08a49f8dd82"; // Replace with Edamam API key
