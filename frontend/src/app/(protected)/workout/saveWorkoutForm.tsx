@@ -221,7 +221,6 @@ export default function SaveWorkoutForm(activeWorkoutPlan: any) {
             saveWorkout(data).then(({ success, error }) => {
             setSuccess(success)
             setError(error)
-            if(success) redirect("/workout")
             })
         })
     }
