@@ -9,6 +9,7 @@ export const metadata = {
 
 export default async function WorkoutPage() {
   const activeWorkoutPlan = await getActiveWorkoutPlan()
+  console.log(activeWorkoutPlan);
   if(!activeWorkoutPlan) redirect("/create-workout")
   return (
   <SaveWorkoutForm activeWorkoutPlan={activeWorkoutPlan}></SaveWorkoutForm>
