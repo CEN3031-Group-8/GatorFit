@@ -17,8 +17,6 @@ export const exerciseSchema = new Schema({
         type: String,
         required: true,
         unique: false,
-        minlength: 3,
-        maxlength: 20,
     },
     sets: {
         type: [setSchema]
