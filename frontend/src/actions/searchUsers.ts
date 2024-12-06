@@ -3,6 +3,10 @@
 import { auth } from '@auth'
 
 export const searchUsers = async (query: string) => {
+  const session = await auth()
+  if(!session) return { error: 'Not logged in' }
+  const user : any = session.user
+
  if (
     typeof process.env.BACKEND_URL !== 'string' ||
     typeof process.env.API_KEY !== 'string'
@@ -11,7 +15,7 @@ export const searchUsers = async (query: string) => {
     return { error: 'Something went wrong' }
   }
 
-  const searchUsersUrl = process.env.BACKEND_URL + '/search-users/' + query
+  const searchUsersUrl = process.env.BACKEND_URL + `/search-users/${query}/${user.user.id}`
   try {
     const res = await fetch(searchUsersUrl, {
       method: 'GET',
