@@ -57,6 +57,7 @@ routes.post('/workout', async (req, res) => {
 
 routes.get('/get-active-workout/:userid', async (req, res) => {
   const activeWorkoutPlan = await ActiveWorkoutPlan.findOne({ creator: req.params.userid}).populate('workoutPlan')
+  console.log(activeWorkoutPlan);
   if (activeWorkoutPlan) {
     res.status(200).json(activeWorkoutPlan)
   } else {
