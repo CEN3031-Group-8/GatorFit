@@ -4,8 +4,9 @@ import express from 'express'
 import { login, register } from './controllers/userController'
 import { saveWorkoutPlan } from './controllers/workoutPlanController'
 import { saveWorkout } from './controllers/workoutController'
+import { saveLike } from './controllers/likeController'
 
-import { ActiveWorkoutPlan, User } from './models'
+import { ActiveWorkoutPlan, Follow, Like, Post, User } from './models'
 
 
 const routes = express.Router()
@@ -60,6 +61,56 @@ routes.get('/get-active-workout/:userid', async (req, res) => {
     res.status(200).json(activeWorkoutPlan)
   } else {
     res.status(400).json({error : "Could not find active workout plan"})
+  }
+})
+
+routes.get('/get-feed/:userid', async (req, res) => {
+  try {
+    // const activeWorkoutPlan = await ActiveWorkoutPlan.findOne({ creator: req.params.userid}).populate('workoutPlan')
+    const followObjects = await Follow.find({ follower: req.params.userid})
+    const followeeIds = followObjects.map(item => item.followee)
+    const posts = await Post.find({ creator: { $in: followeeIds } }).populate(['workout','creator',])
+    const updatedPosts : any = []
+    for (let i = 0; i < posts.length; i++) {
+      const post: any = posts[i]
+      const numLikes = await post.getLikeCount()
+      const updatedPost: any = posts[i].toObject()
+      updatedPost.numLikes = numLikes
+
+      const liked = await Like.findOne({ creator: req.params.userid, post: post._id})
+      if(liked) updatedPost.liked = true
+      else updatedPost.liked = false
+      updatedPosts.push(updatedPost)
+    }
+    res.status(200).json(updatedPosts)
+  } catch {
+    res.status(400).json({error : "Something went wrong"})
+  }
+})
+
+routes.post('/create-like/:userid/:postid', async (req, res) => {
+  try {
+    const likeData = {
+      creator: req.params.userid,
+      post: req.params.postid
+    }
+    await saveLike(likeData)
+    console.log('POST /workout 200')
+    res.sendStatus(200)
+  } catch (error) {
+    res.status(400).json({error : "Something went wrong"})
+
+  }
+})
+
+routes.post('/delete-like/:userid/:postid', async (req, res) => {
+  try {
+    await Like.deleteOne({ creator: req.params.userid})
+    console.log('POST /workout 200')
+    res.sendStatus(200)
+  } catch (error) {
+    res.status(400).json({error : "Something went wrong"})
+
   }
 })
 

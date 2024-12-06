@@ -1,5 +1,6 @@
-import { Schema, model } from 'mongoose'
+import mongoose, { Schema, model, mongo } from 'mongoose'
 import { userSchema } from './'
+import { Like } from './Like';
 
 export const postSchema = new Schema({
   creator: {
@@ -22,6 +23,11 @@ export const postSchema = new Schema({
     default: Date.now,
   },
 })
+
+postSchema.methods.getLikeCount = async function (): Promise<number> {
+    const likeCount = await Like.countDocuments({ post: this._id });
+    return likeCount;
+};
 
 // Create models
 export const Post = model('Post', postSchema);

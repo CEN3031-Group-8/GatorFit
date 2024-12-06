@@ -6,12 +6,14 @@ import { AppleIcon } from '../../components/icons/apple';
 import { BookIcon } from '../../components/icons/book';
 import { PlayIcon } from '../../components/icons/play';
 import { UserIcon } from '../../components/icons/user';
+import { SearchIcon } from 'lucide-react';
 
-const pages = [ "/workout", "/diet", "/journal", "/feed", "/settings"]
+const pages = [ "/workout", "/diet", "/search", "/feed", "/settings"]
 const icons: {[key:string]: JSX.Element} = {
   "/workout": <DumbbellIcon/>,
   "/diet": <AppleIcon/>,
-  "/journal": <BookIcon/>,
+  // "/journal": <BookIcon/>,
+  "/search": <SearchIcon/>,
   "/feed": <PlayIcon/>,
   "/settings": <UserIcon/>,
 }

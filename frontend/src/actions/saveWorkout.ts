@@ -5,7 +5,8 @@ import { auth } from '@auth'
 export const saveWorkout = async (data: any) => {
   const session = await auth()
     if(session) {
-        data["creator"] = session.user.user.id
+      const user: any = session.user
+      data["creator"] = user.user.id
     } else {
         return { error: 'Not logged in' }
     }
