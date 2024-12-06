@@ -39,7 +39,8 @@ export default async function SettingsPage() {
         )}
           <p className="font-semibold">{user.username}</p>
       </div>
-      <div className="mt-28">
+      <div className="mt-28 pt-3">
+        <h2 className="text-2xl font-semibold mb-3">Your Posts:</h2>
         <Posts posts={posts}></Posts>
       </div>
     </div>
