@@ -9,15 +9,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, TrashIcon } from "lucide-react";
+import { saveFood } from "@/actions/saveFood";
+import { getFoods } from "@/actions";
 
 const NutritionTracker = () => {
+  const getFoodData = async () => {
+    const foodData = await getFoods()
+    console.log(foodData)
+    return foodData
+  }
   const [currentDate, setCurrentDate] = useState(dayjs().format("YYYY-MM-DD"));
-  const [dataByDate, setDataByDate] = useState({});
+  const [dataByDate, setDataByDate] = useState(getFoodData);
 
   const appId = "12125993"; // Replace with Edamam app ID
   const appKey = "002ab0abce55914fbabdb08a49f8dd82"; // Replace with Edamam API key
   const nutritionApiUrl = `https://api.edamam.com/api/nutrition-details?app_id=${appId}&app_key=${appKey}`;
+
 
   // Default macros and meals for a new day
   const getDefaultData = () => ({
@@ -30,7 +38,7 @@ const NutritionTracker = () => {
     meals: [],
   });
 
-  const getDataForDate = (date) => {
+  const getDataForDate = (date: any) => {
     if (!dataByDate[date]) {
       setDataByDate((prev) => ({ ...prev, [date]: getDefaultData() }));
     }
@@ -70,6 +78,7 @@ const NutritionTracker = () => {
           : meal
       );
       updateDataForCurrentDate(updatedMeals);
+      saveFood(updatedMeals, currentDate)
     } catch (error) {
       console.error("Error fetching nutrition:", error);
       alert("Unable to fetch nutrition for the entered food.");
@@ -131,7 +140,7 @@ const NutritionTracker = () => {
   };
 
   return (
-    <div className="bg-black text-white w-full max-w-md mx-auto h-screen flex flex-col">
+    <div className="full max-w-md mx-auto h-screen flex flex-col">
 
 
       {/* Date Navigation */}
@@ -196,7 +205,7 @@ const NutritionTracker = () => {
                 onClick={() => removeMeal(meal.id)}
                 className="text-red-500 hover:underline text-xs ml-4"
               >
-                Remove
+                <TrashIcon className="w-4 h-4"/>
               </button>
             </div>
             <div className="flex justify-between mt-2 text-sm text-gray-500">
@@ -209,10 +218,10 @@ const NutritionTracker = () => {
       </div>
 
       {/* Add Button */}
-      <div className="relative">
+      <div className="fixed bottom-24 w-full flex items-center justify-center">
         <button
           onClick={addMeal}
-          className="absolute bottom-16 right-4 w-12 h-12 bg-red-500 rounded-full flex items-center justify-center shadow-lg"
+          className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center shadow-lg"
         >
           <Plus className="w-6 h-6" />
         </button>

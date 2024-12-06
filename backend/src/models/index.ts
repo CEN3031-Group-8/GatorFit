@@ -4,4 +4,5 @@ export * from './WorkoutPlan'
 export * from './Follow'
 export * from './Post'
 export * from './Like'
+export * from './Food'
 

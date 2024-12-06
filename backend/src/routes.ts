@@ -6,8 +6,9 @@ import { saveWorkoutPlan } from './controllers/workoutPlanController'
 import { saveWorkout } from './controllers/workoutController'
 import { saveLike } from './controllers/likeController'
 
-import { ActiveWorkoutPlan, Follow, Like, Post, User } from './models'
+import { ActiveWorkoutPlan, Follow, FoodDay, Like, Post, User } from './models'
 import { saveFollow } from './controllers/followController'
+import { saveFood } from './controllers/foodController'
 
 
 const routes = express.Router()
@@ -176,6 +177,24 @@ routes.post('/delete-follow/:followerid/:followeeid', async (req, res) => {
   } catch (error) {
     res.status(400).json({error : "Something went wrong"})
 
+  }
+})
+
+routes.post('/save-food', async (req, res) => {
+  const { success, error } = await saveFood(req.body)
+  if (success) {
+    res.sendStatus(200)
+  } else if (error) {
+    res.status(error.status).json({ error: error.message })
+  }
+})
+
+routes.get('/get-foods/:userid', async (req, res) => {
+  try {
+    const foodDay: any = await FoodDay.find({ creator: req.params.userid})
+    res.status(200).json(foodDay)
+  } catch {
+    res.status(400).json({error : "Something went wrong"})
   }
 })
 
